@@ -5,18 +5,18 @@ const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql
 
 // some dummy data! :
 const books = [
-	{ name: "aslkdja", genre: "asdkl", id: 1 },
-	{ name: "zcx", genre: "sad", id: 2 },
-	{ name: "zxczxc", genre: "zxc", id: 3 },
+	{ name: "aslkdja", genre: "asdkl", id: "1" },
+	{ name: "zcx", genre: "sad", id: "2" },
+	{ name: "zxczxc", genre: "zxc", id: "3" },
 ]
 
 const BookType = new GraphQLObjectType({
 	name: "Book",
 	fields: () => ({
-		id: { type: GraphQLID },
+		id: { type: GraphQLString },
 		name: { type: GraphQLString },
 		genre: { type: GraphQLString },
-	})
+	}),
 })
 
 // @ Rootquery
@@ -26,11 +26,11 @@ const RootQuery = new GraphQLObjectType({
 	fields: {
 		book: {
 			type: BookType,
-			args: { id: { GraphQLID } },
+			args: { id: { type: GraphQLString } },
 			resolve(parent, args) {
 				// code to get data from db / other source
 				return books.filter((book) => book.id === args.id)
-				// _.find(books, {id: args.id})
+				// return _.find(books, { id: args.id })
 			},
 		},
 	},
