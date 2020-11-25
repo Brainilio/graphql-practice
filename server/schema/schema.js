@@ -4,10 +4,16 @@ const _ = require("lodash")
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql
 
 // some dummy data! :
-const booklist = [
-	{ name: "bible", genre: "best-books", id: "1" },
-	{ name: "lotr", genre: "fantasy", id: "2" },
-	{ name: "hp", genre: "fantasy", id: "3" },
+let books = [
+	{ name: "Name of the Wind", genre: "Fantasy", id: "1" },
+	{ name: "The Final Empire", genre: "Fantasy", id: "2" },
+	{ name: "The Long Earth", genre: "Sci-Fi", id: "3" },
+]
+
+let authors = [
+	{ name: "Patrick Rothfuss", age: 44, id: "1" },
+	{ name: "Brandon Sanderson", age: 42, id: "2" },
+	{ name: "Terry Pratchett", age: 66, id: "3" },
 ]
 
 const BookType = new GraphQLObjectType({
@@ -29,10 +35,8 @@ const RootQuery = new GraphQLObjectType({
 			args: { id: { type: GraphQLID } },
 			resolve(parent, args) {
 				// code to get data from db / other source
-				console.log(typeof args.id)
-
-				return booklist.filter((book) => book.id === args.id)
-				// return _.find(books, { id: args.id })
+				let book = books.find((b) => b.id == args.id)
+				return book
 			},
 		},
 	},
