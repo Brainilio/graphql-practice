@@ -10,8 +10,8 @@ const {
 	GraphQLList,
 } = graphql
 
-const Book = require('../models/book')
-const Author = require('../models/author')
+const Book = require("../models/book")
+const Author = require("../models/author")
 
 // some dummy data! :
 let books = [
@@ -68,26 +68,65 @@ const RootQuery = new GraphQLObjectType({
 			args: { id: { type: GraphQLID } },
 			resolve(parent, args) {
 				// code to get data from db / other source
-				return books.find((b) => b.id == args.id)
+				// return books.find((b) => b.id == args.id)
 			},
 		},
 		author: {
 			type: AuthorType,
 			args: { id: { type: GraphQLID } },
 			resolve(parent, args) {
-				return authors.find((author) => author.id == args.id)
+				// return authors.find((author) => author.id == args.id)
 			},
 		},
 		books: {
 			type: new GraphQLList(BookType),
 			resolve(parent, args) {
-				return books
+				// return books
 			},
 		},
 		authors: {
 			type: new GraphQLList(AuthorType),
 			resolve(parent, args) {
-				return authors
+				// return authors
+			},
+		},
+	},
+})
+
+// mutations let us mutate our data (think crud), we need to explicitly define in GraphQL what we want to mutate.
+
+const Mutations = new GraphQLObjectType({
+	name: "Mutation",
+	fields: {
+		addAuthor: {
+			type: AuthorType,
+			args: {
+				name: { type: GraphQLString },
+				age: { type: GraphQLInt },
+			},
+			resolve(parent, args) {
+				let author = new Author({
+					name: args.name,
+					age: args.age,
+				})
+
+				return author.save()
+			},
+		},
+		addBook: {
+			type: BookType,
+			args: {
+				name: { type: GraphQLString },
+				genre: { type: GraphQLString },
+				authorId: { type: GraphQLID },
+			},
+			resolve(parent, args) {
+				let book = new Book({
+					name: args.name,
+					genre: args.genre,
+					authorId: args.authorId,
+				})
+				return book.save()
 			},
 		},
 	},
@@ -95,4 +134,5 @@ const RootQuery = new GraphQLObjectType({
 
 module.exports = new GraphQLSchema({
 	query: RootQuery,
+	mutation: Mutations,
 })
