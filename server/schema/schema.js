@@ -10,6 +10,9 @@ const {
 	GraphQLList,
 } = graphql
 
+const Book = require('../models/book')
+const Author = require('../models/author')
+
 // some dummy data! :
 let books = [
 	{ name: "Name of the Wind", genre: "Fantasy", id: "1", authorId: "1" },
