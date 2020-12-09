@@ -1,15 +1,18 @@
 import React from "react"
 import classes from "./AddBook.module.css"
-import { gql, useQuery } from "@apollo/client"
+import { useQuery } from "@apollo/client"
+import { GET_AUTHORS } from "../../Queries/queries"
 
-const GET_AUTHORS = gql`
-	{
-		authors {
-			name
-			id
-		}
-	}
-`
+const DisplayAuthors = () => {
+	const { loading, error, data } = useQuery(GET_AUTHORS)
+	if (loading) return <option disabled>Loading authors..</option>
+	if (error) return <option disabled>Something went wrong..</option>
+	return data.authors.map((author) => (
+		<option value={author.id} key={author.id}>
+			{author.name}
+		</option>
+	))
+}
 
 const AddBook = () => {
 	return (
@@ -27,6 +30,7 @@ const AddBook = () => {
 					<label>Author:</label>
 					<select>
 						<option>Select Author</option>
+						{DisplayAuthors()}
 					</select>
 				</div>
 				<button>Add Book</button>

@@ -1,15 +1,7 @@
 import React from "react"
 import classes from "./BookList.module.css"
-import { gql, useQuery } from "@apollo/client"
-
-const GET_BOOKS = gql`
-	{
-		books {
-			name
-			id
-		}
-	}
-`
+import { useQuery } from "@apollo/client"
+import { GET_BOOKS } from "../../Queries/queries"
 
 const DisplayBooks = () => {
 	const { loading, error, data } = useQuery(GET_BOOKS)
