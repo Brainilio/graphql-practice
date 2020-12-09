@@ -28,15 +28,16 @@ export const ADD_BOOK = gql`
 `
 
 export const GET_SINGLE_BOOK = gql`
-	query($id: String) {
+	query($id: ID!) {
 		book(id: $id) {
 			id
 			name
 			genre
 			author {
 				name
-				age
-				books
+				books {
+					name
+				}
 			}
 		}
 	}
