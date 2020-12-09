@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import classes from "./AddBook.module.css"
-import { useQuery } from "@apollo/client"
-import { GET_AUTHORS } from "../../Queries/queries"
+import { useQuery, useMutation } from "@apollo/client"
+import { GET_AUTHORS, ADD_BOOK } from "../../Queries/queries"
 
 const DisplayAuthors = () => {
 	const { loading, error, data } = useQuery(GET_AUTHORS)
@@ -21,6 +21,8 @@ const AddBook = () => {
 		authorId: "",
 	})
 
+	const [addBook, { bookData }] = useMutation(ADD_BOOK)
+
 	const formHandler = (event) => {
 		let label = event.target.name
 		let value = event.target.value
@@ -30,9 +32,13 @@ const AddBook = () => {
 		})
 	}
 
+	//method to add some queries
 	const submitForm = (event) => {
 		event.preventDefault()
 		console.log(data)
+		addBook({ variables: data })
+			.then((response) => console.log(response))
+			.catch((error) => console.log(error))
 	}
 
 	return (
