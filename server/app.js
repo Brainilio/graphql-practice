@@ -5,9 +5,8 @@ const schema = require("./schema/schema")
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 const app = express()
+const cors = require("cors")
 const port = 4000
-
-
 
 dotenv.config({
 	path: "./config.env",
@@ -16,6 +15,8 @@ dotenv.config({
 app.listen(port, () => {
 	console.log(`Listening to requests on port ${port}`)
 })
+
+app.use(cors())
 
 //connect to mongodb
 const DB = process.env.DB

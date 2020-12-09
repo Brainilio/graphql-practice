@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import ApolloClient from "apollo-boost"
+import { ApolloProvider } from "@apollo/client"
+import BookList from "./components/BookList/BookList"
+import { AddBook } from "./components/AddBook/AddBook"
+
+const client = new ApolloClient({
+	uri: "http://localhost:4000/graphql",
+})
+
+console.log(process.env.URI)
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<ApolloProvider client={client}>
+			<div className="main">
+				<h1>My reading list:</h1>
+				<BookList />
+				<AddBook />
+			</div>
+		</ApolloProvider>
+	)
 }
 
-export default App;
+export default App
