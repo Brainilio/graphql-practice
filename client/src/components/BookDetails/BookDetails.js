@@ -1,5 +1,5 @@
 import React from "react"
-import { useQuery, useMutation } from "@apollo/client"
+import { useQuery } from "@apollo/client"
 import { GET_SINGLE_BOOK } from "../../Queries/queries"
 
 const GetBook = (id) => {
@@ -17,6 +17,7 @@ const GetBook = (id) => {
 				<h2>{data.book.name}</h2>
 				<p>{data.book.genre}</p>
 				<p>{data.book.author.name}</p>
+
 				<p>All books by this author:</p>
 				<ul>
 					{data.book.author.books.map((book) => (

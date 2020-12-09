@@ -42,3 +42,11 @@ export const GET_SINGLE_BOOK = gql`
 		}
 	}
 `
+
+export const DELETE_BOOK = gql`
+	mutation deleteBook($id: ID!) {
+		deleteBook(id: $id) {
+			id
+		}
+	}
+`
