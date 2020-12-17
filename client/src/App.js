@@ -16,7 +16,7 @@ function App() {
 				<AddBook />
 			</div>
 		</ApolloProvider>
-	)t
+	)
 }
 
 export default App
