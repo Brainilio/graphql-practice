@@ -4,19 +4,19 @@ import BookList from "./components/BookList/BookList"
 import AddBook from "./components/AddBook/AddBook"
 
 const client = new ApolloClient({
-	uri: "http://localhost:4000/graphql",
+	uri: process.env.REACT_APP_API_URI,
 })
 
 function App() {
 	return (
 		<ApolloProvider client={client}>
-			<div className="main">
-				<h1>My reading list:</h1>
+			<div className="container box-border">
+				<h1 className="">My reading list: {process.env.REACT_APP_NAME}</h1>
 				<BookList />
 				<AddBook />
 			</div>
 		</ApolloProvider>
-	)
+	)t
 }
 
 export default App

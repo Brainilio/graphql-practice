@@ -31,7 +31,7 @@ const GetBook = (id) => {
 
 const BookDetails = (props) => {
 	return (
-		<div>
+		<div className="shadow-lg">
 			<p>Output Book Details here</p>
 			{GetBook(props.id)}
 		</div>
